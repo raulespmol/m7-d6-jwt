@@ -1,14 +1,15 @@
 const database = require('../database/config')
 
-const checkConnection = async () => {
-  const consulta = "SELECT NOW()"
-  const {rows} = await database.query(consulta)
+const registrarUsuario = async ({email, password, rol, lenguage}) => {
+  const consulta = "INSERT INTO usuarios VALUES (DEFAULT, $1, $2, $3, $4) RETURNING *"
+  const values = [email, password, rol, lenguage]
 
-  return rows
+  const {rows: usuario} = await database.query(consulta, values)
+  return usuario
 }
 
 const usuariosModel = {
-  checkConnection
+  registrarUsuario
 }
 
 module.exports = usuariosModel

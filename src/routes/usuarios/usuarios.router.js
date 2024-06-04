@@ -1,13 +1,10 @@
 const usuariosRouter = require('express').Router()
-const {connect} = require('../../controllers/usuarios.controller')
+const {nuevoUsuario} = require('../../controllers/usuarios.controller')
 
-usuariosRouter.get('/', connect)
-// usuariosRouter.get('/', (req, res) => {
-//   res.json({msg: "Desde GET /usuarios"})
-// })
+usuariosRouter.post('/', nuevoUsuario)
 
-usuariosRouter.post('/', (req, res) => {
-  res.json({msg: "Desde POST /usuarios"})
+usuariosRouter.get('/', (req, res) => {
+  res.json({msg: "Desde GET /usuarios"})
 })
 
 module.exports = usuariosRouter
