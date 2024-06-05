@@ -20,7 +20,7 @@ const verificarCredenciales = async ({email, password}) => {
   const passwordEsCorrecta = bcrypt.compareSync(password, passwordEncriptada)
 
   if(!passwordEsCorrecta || !rowCount){
-    throw {code: 404, message: "Credenciales incorrectas"}
+    throw {code: 401, message: "No existe un usuario con estas credenciales"}
   }
 }
 
