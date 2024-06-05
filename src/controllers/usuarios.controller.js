@@ -12,6 +12,16 @@ const nuevoUsuario = async (req, res) => {
   }
 }
 
+const getUsuario = async (req, res) => {
+  try {
+    console.log(req.header("Authorization"));
+    res.send("desde GET /usuarios")
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
-  nuevoUsuario
+  nuevoUsuario,
+  getUsuario
 }
