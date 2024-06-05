@@ -7,7 +7,8 @@ const nuevoUsuario = async (req, res) => {
   
     res.send(result)
   } catch (error) {
-    console.log(error);
+    console.log(error)
+    res.send(error.detail)
   }
 }
 
