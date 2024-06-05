@@ -8,9 +8,9 @@ const iniciarSesion = async (req, res) => {
     await usuariosModel.verificarCredenciales(credenciales)
 
     const token = jwt.sign(credenciales.email, process.env.SECRET)
-    res.send(token)
+    res.send({token})
   } catch (error) {
-    console.log(error)
+    res.status(error.code).send(error)
   }
 }
 
