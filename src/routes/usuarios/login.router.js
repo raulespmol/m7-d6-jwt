@@ -1,7 +1,6 @@
 const loginRouter = require('express').Router()
+const {iniciarSesion} = require('../../controllers/login.controller')
 
-loginRouter.post('/', (req, res) => {
-  res.json({msg: "Desde POST /login"})
-})
+loginRouter.post('/', iniciarSesion)
 
 module.exports = loginRouter

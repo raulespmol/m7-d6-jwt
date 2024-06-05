@@ -11,8 +11,22 @@ const registrarUsuario = async ({email, password, rol, lenguage}) => {
   return usuario
 }
 
+const verificarCredenciales = async ({email, password}) => {
+  const consulta = "SELECT * FROM usuarios WHERE email = $1"
+  const values = [email]
+  
+  const {rows: [usuario], rowCount} = await database.query(consulta, values)
+  const {password: passwordEncriptada} = usuario
+  const passwordEsCorrecta = bcrypt.compareSync(password, passwordEncriptada)
+
+  if(!passwordEsCorrecta || !rowCount){
+    throw {code: 404, message: "Credenciales incorrectas"}
+  }
+}
+
 const usuariosModel = {
-  registrarUsuario
+  registrarUsuario,
+  verificarCredenciales
 }
 
 module.exports = usuariosModel
