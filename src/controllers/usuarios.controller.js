@@ -1,4 +1,6 @@
 const usuariosModel = require('../models/usuarios.model')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const nuevoUsuario = async (req, res) => {
   try {
@@ -14,8 +16,14 @@ const nuevoUsuario = async (req, res) => {
 
 const getUsuario = async (req, res) => {
   try {
-    console.log(req.header("Authorization"));
-    res.send("desde GET /usuarios")
+    const Authorization = req.header("Authorization")
+    const token = Authorization.split(" ")[1]
+    
+    jwt.verify(token, process.env.SECRET)
+    const {email} = jwt.decode(token)
+    const usuario = await usuariosModel.obtenerUsuarioPorEmail(email)
+    
+    res.send(usuario)
   } catch (error) {
     console.log(error);
   }
