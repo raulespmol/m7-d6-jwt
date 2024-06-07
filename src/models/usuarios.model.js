@@ -24,8 +24,8 @@ const verificarCredenciales = async ({email, password}) => {
   }
 }
 
-const obtenerUsuarioPorEmail = async (email) => {
-  const consulta = "SELECT * FROM usuarios WHERE email = $1"
+const obtenerInfoUsuario = async (email) => {
+  const consulta = "SELECT email, rol, lenguage FROM usuarios WHERE email = $1"
   const values = [email]
 
   const {rows: usuario} = await database.query(consulta, values)
@@ -36,7 +36,7 @@ const obtenerUsuarioPorEmail = async (email) => {
 const usuariosModel = {
   registrarUsuario,
   verificarCredenciales,
-  obtenerUsuarioPorEmail
+  obtenerInfoUsuario
 }
 
 module.exports = usuariosModel

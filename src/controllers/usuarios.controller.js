@@ -21,7 +21,7 @@ const getUsuario = async (req, res) => {
     
     jwt.verify(token, process.env.SECRET)
     const {email} = jwt.decode(token)
-    const usuario = await usuariosModel.obtenerUsuarioPorEmail(email)
+    const usuario = await usuariosModel.obtenerInfoUsuario(email)
     
     res.send(usuario)
   } catch (error) {
