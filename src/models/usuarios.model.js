@@ -15,13 +15,11 @@ const verificarCredenciales = async ({email, password}) => {
   const consulta = "SELECT * FROM usuarios WHERE email = $1"
   const values = [email]
   
-  const {rows: [usuario], rowCount} = await database.query(consulta, values)
+  const {rows: [usuario]} = await database.query(consulta, values)
   const {password: passwordEncriptada} = usuario
   const passwordEsCorrecta = bcrypt.compareSync(password, passwordEncriptada)
 
-  if(!passwordEsCorrecta || !rowCount){
-    throw {code: 401, message: "No existe un usuario con estas credenciales"}
-  }
+  return passwordEsCorrecta
 }
 
 const obtenerInfoUsuario = async (email) => {
