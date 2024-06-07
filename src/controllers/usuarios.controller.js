@@ -16,11 +16,7 @@ const nuevoUsuario = async (req, res) => {
 
 const getUsuario = async (req, res) => {
   try {
-    const Authorization = req.header("Authorization")
-    const token = Authorization.split(" ")[1]
-    
-    jwt.verify(token, process.env.SECRET)
-    const {email} = jwt.decode(token)
+    const {email} = req.user
     const usuario = await usuariosModel.obtenerInfoUsuario(email)
     
     res.send(usuario)
